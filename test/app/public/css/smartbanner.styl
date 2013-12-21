@@ -1,0 +1,117 @@
+@import 'nib'
+
+/**
+ * variable definitions
+ */
+$star = 10px
+
+/**
+ * define background-image as `path` with optional width and height,
+ * adding an @2x variant.
+ */
+x-background-image(path, w = auto, h = auto)
+	background-image: x-data-uri(path)
+	@media all and (-webkit-min-device-pixel-ratio: 1.5)
+		ext = extname(path)
+		path = pathjoin(dirname(path), basename(path, ext) + '@2x' + ext)
+		background-image: x-data-uri(path)
+		background-size: w h
+
+/**
+ * now the css
+ */
+#smartbanner
+	position: absolute
+	left: 0
+	top: -82px
+	display: none
+	border-bottom: 1px solid #e8e8e8
+	width: 100%
+	height: 78px
+	font-family: 'Helvetica Neue', sans-serif
+	background: #f2f2f2
+	box-shadow: 0 1px 2px rgba(0, 0, 0, 0.5)
+	z-index: 9998
+	overflow: hidden
+	-webkit-text-size-adjust: none
+	-webkit-font-smoothing: antialiased
+	.sb-container
+		margin: 0 auto
+	.sb-close
+		position: absolute
+		left: 8px
+		top: 29px
+		display: block
+		width: 14px
+		height: 14px
+		line-height: 14px
+		font-family: 'ArialRoundedMTBold', Arial
+		font-size: 20px
+		text-align: center
+		color: #808080
+		text-decoration: none
+		text-shadow: none
+		&:active,
+		&:hover
+			color: #aaa
+	.sb-icon
+		position: absolute
+		left: 30px
+		top: 10px
+		display: block
+		width: 57px
+		height: 57px
+		background-size: cover
+		border-radius: 10px
+		box-shadow: 0 0 1px rgba(0, 0, 200, 0.5)
+	.sb-info 
+		position: absolute
+		display: block
+		left: 98px
+		top: 10px
+		width: 40%
+		font-size: 12px
+		line-height: 1.2em
+		color: #000
+		strong
+			display: block
+			font-size: 15px
+			line-height: 18px
+		& > span, 
+		strong 
+			display: block
+			text-overflow: ellipsis
+			overflow: hidden
+			white-space: pre
+		em
+			font-style: normal
+			text-transform: uppercase
+		.sb-stars
+			position: relative
+			x-background-image: "icons/star-off.png" $star $star
+			background-repeat: repeat-x
+			width: 5 * $star
+			height: $star
+			margin: 2px 0
+			.sb-rating
+				position: absolute
+				x-background-image: "icons/star-on.png" $star $star
+				background-repeat: repeat-x
+	.sb-button
+		position: absolute
+		display: block
+		right: 0px
+		top: 24px
+		padding: 0 10px
+		min-width: 10%
+		height: 24px
+		font-size: 16px
+		line-height: 24px
+		text-align: center
+		color: #007aff
+		text-decoration: none
+	&.show
+		display: block
+	&.windows
+		.sb-icon
+			border-radius: 0px

@@ -1,0 +1,20 @@
+{
+  "name": "node-smartbanner",
+  "version": "0.0.1",
+  "description": "Web App Promotion Smartbanner",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "repository": "",
+  "keywords": [
+    "Smartbanner",
+    "Promotion of Web App in Apple, Google Play or Windows Store"
+  ],
+  "author": "Commenthol",
+  "license": "MIT",
+  "dependencies": {
+    "cheerio": "*",
+    "request": "*"
+  }
+}
