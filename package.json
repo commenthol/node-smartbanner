@@ -1,12 +1,16 @@
 {
   "name": "node-smartbanner",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Web App Promotion Smartbanner",
   "main": "index.js",
   "directories": {
+    "lib": "lib",
     "test": "test"
   },
-  "repository": "",
+  "repository": { 
+    "type" : "git",
+    "url" : "https://github.com/commenthol/node-smartbanner.git"
+  },
   "keywords": [
     "Smartbanner",
     "Promotion of Web App in Apple, Google Play or Windows Store"
@@ -15,6 +19,21 @@
   "license": "MIT",
   "dependencies": {
     "cheerio": "*",
-    "request": "*"
-  }
+    "request": "*",
+    "lodash": "*"
+  },
+  "devDependencies": {
+    "express": "3.4.x",
+    "stylus": "*",
+    "nib": "*",
+    "vows": "*"
+  },
+  "scripts": {
+    "test": "bash test/runtest.sh",
+    "start": "node test/app/app.js"
+  },
+  "engines" : { 
+    "node" : ">=0.8.24" 
+  },
+  "engine-strict": true
 }

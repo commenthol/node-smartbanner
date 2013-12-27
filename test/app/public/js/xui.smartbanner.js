@@ -6,7 +6,7 @@
  */
 !function (x$) {
 
-
+	// extend objects
 	function extend(t) {
 		for (var i = 1, l = arguments.length, s; i < l; i += 1) {
 			s = arguments[i];
@@ -19,6 +19,9 @@
 		return t;
 	}
 
+	/*
+	 * cookie handling
+	 */
 	var cookie = {
 		read: function (key) {
 			var value;
@@ -36,9 +39,12 @@
 		}
 	}
 
+	/*
+	 * smartbanner component
+	 */
 	function smartbanner(options) {
+
 		var defaults = {
-			language: "de",
 			url: "/smartbanner",
 			daysHidden: 15,
 			daysReminder: 90,
@@ -46,16 +52,20 @@
 
 		var self = extend(defaults, options, { type: null });
 
-		parseUserAgent();
-		if (! self.type || cookie.read('sb-closed') || cookie.read('sb-view')) { return; }
+		// initialize component
+		(function init() {
+			if (! parseUserAgent() || cookie.read('sb-closed') || cookie.read('sb-view')) { return; }
 
-		xhr(function(){
-			if (this.status === 200) {
-				x$('body').bottom(this.responseText);
-				component(self);
-			}
-		});
+			xhr(function(){
+				// add snippet to DOM
+				if (this.status === 200) {
+					x$('body').bottom(this.responseText);
+					behaviour(self);
+				}
+			});
+		})();
 
+		// detect the OS
 		function parseUserAgent() {
 			var ua = navigator.userAgent;
 			if (/^ios|android|windowsphone$/.test(self.force)) {
@@ -70,19 +80,24 @@
 			else if (ua.match(/Windows Phone/i) != null) {
 				self.type = 'windowsphone'
 			}
+			if (self.type && self.appId[self.type]) {
+				return true;
+			}
+			return false;
 		}
 
+		// get the html snippet to render the smartbanner
 		function xhr(callback) {
-			var s = 'type=' + self.type + '&appId=' + self.appId[self.type];
-			x$().xhr(self.url, {
-				method: 'post',
-				data: s,
+			var url = self.url + '/' + self.type + '/' + self.appId[self.type];
+			x$().xhr(url, {
+				method: 'get',
 				async: true,
 				callback: callback
 			});
 		}
 
-		function component(opts) {
+		// adding controls
+		function behaviour(opts) {
 
 			var self = {};
 			self.elem = x$('#smartbanner');
@@ -91,12 +106,9 @@
 			var show = function() {
 				self.elem.addClass('show');
 				setTimeout(function(){
-					self.bannerheight = self.elem[0].offsetHeight + 2;
+					self.bannerheight = self.elem[0].offsetHeight;
 					x$('html').setStyle('margin-top', self.origTopHtml + self.bannerheight + "px");
 					self.elem.setStyle('top', 0);
-					if (opts.type === 'windowsphone') {
-						self.elem.addClass('windows');
-					}
 				}, 50);
 			}
 

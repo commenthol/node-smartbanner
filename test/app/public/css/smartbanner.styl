@@ -1,36 +1,17 @@
 @import 'nib'
 
-/**
- * variable definitions
- */
-$star = 10px
-
-/**
- * define background-image as `path` with optional width and height,
- * adding an @2x variant.
- */
-x-background-image(path, w = auto, h = auto)
-	background-image: x-data-uri(path)
-	@media all and (-webkit-min-device-pixel-ratio: 1.5)
-		ext = extname(path)
-		path = pathjoin(dirname(path), basename(path, ext) + '@2x' + ext)
-		background-image: x-data-uri(path)
-		background-size: w h
-
-/**
- * now the css
- */
 #smartbanner
+	$icon = 64px
+	$height = 82px
 	position: absolute
 	left: 0
-	top: -82px
+	top: 0px
 	display: none
-	border-bottom: 1px solid #e8e8e8
+	border-bottom: 1px solid #c2c2c2
 	width: 100%
-	height: 78px
-	font-family: 'Helvetica Neue', sans-serif
+	height: $height
+	font-family: 'Helvetica Neue', Arial, sans-serif
 	background: #f2f2f2
-	box-shadow: 0 1px 2px rgba(0, 0, 0, 0.5)
 	z-index: 9998
 	overflow: hidden
 	-webkit-text-size-adjust: none
@@ -40,13 +21,10 @@ x-background-image(path, w = auto, h = auto)
 	.sb-close
 		position: absolute
 		left: 8px
-		top: 29px
+		top: 31px
 		display: block
-		width: 14px
-		height: 14px
-		line-height: 14px
-		font-family: 'ArialRoundedMTBold', Arial
-		font-size: 20px
+		line-height: 23px
+		font-size: 23px
 		text-align: center
 		color: #808080
 		text-decoration: none
@@ -56,30 +34,31 @@ x-background-image(path, w = auto, h = auto)
 			color: #aaa
 	.sb-icon
 		position: absolute
-		left: 30px
+		left: 29px
 		top: 10px
 		display: block
-		width: 57px
-		height: 57px
+		width: $icon
+		height: $icon
 		background-size: cover
-		border-radius: 10px
-		box-shadow: 0 0 1px rgba(0, 0, 200, 0.5)
+		border-radius: 14px
+		box-shadow: 0 0 1px rgba(80,80,80,1)
 	.sb-info 
 		position: absolute
 		display: block
-		left: 98px
+		left: 100px
 		top: 10px
 		width: 40%
-		font-size: 12px
-		line-height: 1.2em
+		font-size: 13px
+		line-height: 16px
 		color: #000
 		strong
 			display: block
 			font-size: 15px
-			line-height: 18px
-		& > span, 
-		strong 
+			font-weight: normal
+		& > span,
+			strong
 			display: block
+			color: #303030
 			text-overflow: ellipsis
 			overflow: hidden
 			white-space: pre
@@ -88,30 +67,73 @@ x-background-image(path, w = auto, h = auto)
 			text-transform: uppercase
 		.sb-stars
 			position: relative
-			x-background-image: "icons/star-off.png" $star $star
-			background-repeat: repeat-x
-			width: 5 * $star
-			height: $star
-			margin: 2px 0
+			display: inline-block;
+			color: #ff9600
+			text-overflow: initial
+			font-weight: bold
+			height: 13px
 			.sb-rating
 				position: absolute
-				x-background-image: "icons/star-on.png" $star $star
-				background-repeat: repeat-x
+				display: block
+				overflow: hidden
 	.sb-button
 		position: absolute
 		display: block
-		right: 0px
+		right: 5px
 		top: 24px
 		padding: 0 10px
 		min-width: 10%
-		height: 24px
-		font-size: 16px
-		line-height: 24px
+		height: 35px
+		font-size: 18px
+		line-height: 35px
 		text-align: center
 		color: #007aff
 		text-decoration: none
 	&.show
 		display: block
+	// windowsphone styling
 	&.windows
+		$margin = 14px
+		$height = 124px
+		background-color: #1f1f1f
+		color: #fff
+		border-bottom: 0px none
+		font-family: 'Segoe UI'
+		height: $height
+		.sb-close,
+		.sb-button
+			top: 82px
+			color: #fff
+			padding: 5px 20px
+			font-size: 16px
+			height: 18px
+			line-height: 18px
+			text-align: center
+			border: 2px solid #fff
+			width: 30%
+			&:active,
+			&:hover
+				color: #fff
+				background: #1ba1e2
+		.sb-close
+			left: $margin
+		.sb-button
+			right: $margin
 		.sb-icon
 			border-radius: 0px
+			left: 2 + $margin
+		.sb-info 
+			width: 68%
+			top: 7px
+			color: #fff
+			left: $margin * 2 + $icon
+			& > span,
+			strong
+				color: #fff
+			.sb-stars
+				color: #4d4d4d
+				text-overflow: initial
+				font-weight: normal
+				height: 15px
+				.sb-rating
+					color: #fff

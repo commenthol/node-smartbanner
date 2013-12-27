@@ -19,13 +19,13 @@ This project is inspired by [jquery.smartbanner](https://github.com/jasny/jquery
 </thead>
 <tr>
 	<td valign="top">
-		<img src="screenshot-ios.png" width="240px"/>
+		<img src="doc/screenshot-ios.png" width="240px"/>
 	</td>
 	<td valign="top">
-		<img src="screenshot-android.png" width="240px"/>
+		<img src="doc/screenshot-android.png" width="240px"/>
 	</td>
 	<td valign="top">
-		<img src="screenshot-wp.png" width="240px"/>
+		<img src="doc/screenshot-wp.png" width="240px"/>
 	</td>
 </tr>
 </table>
@@ -47,7 +47,7 @@ var smartbanner = require('./smartbanner');
 /**
  * include smartbanner 
  */
-app.post('/smartbanner', smartbanner );
+app.get('/smartbanner/*', smartbanner );
 ```
 
 If you need a different configuration e.g. different language settings, please take a look in `config.js`.
@@ -77,13 +77,10 @@ On the bottom of your page which shall contain a smartbanner with the appIds of 
 There is a sample app in `test/app`.
 
 ```bash
-npm install
-cd test/app
-npm install
-node app.js
+npm start
 ```
 
-Access it with http://localhost:3000
+Access it with [http://localhost:3000](http://localhost:3000)
 
 ## Contribution and License Agreement
 

@@ -82,7 +82,7 @@ app.get('/', function(req,res, next){
 /**
  * include smartbanner 
  */
-app.post('/smartbanner', smartbanner );
+app.get('/smartbanner/*', smartbanner );
 
 http.createServer(app).listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));
